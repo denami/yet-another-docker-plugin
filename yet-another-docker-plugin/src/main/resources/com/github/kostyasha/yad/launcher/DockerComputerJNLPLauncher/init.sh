@@ -108,8 +108,8 @@ fi
 #Restrict access to master by default hostname
 #Described in comment for https://github.com/KostyaSha/yet-another-docker-plugin/issues/228
 if [ -n "$MASTER_URL" ] ; then
-    MASTER_HOSTNAME=$(echo "$MASTER_URL" | awk -F/ '{print $3}')
-    echo "Ban master hostname"
+    MASTER_HOSTNAME=$(echo "$MASTER_URL" | awk -F/ '{print $3}' | awk -F ":" '{print $1}')
+    echo "Ban master hostname: $MASTER_HOSTNAME"
     echo "127.0.0.1 $MASTER_HOSTNAME" >> /etc/hosts
 fi
 
