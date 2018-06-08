@@ -108,12 +108,9 @@ fi
 #Restrict access to master by default hostname
 #Described in comment for https://github.com/KostyaSha/yet-another-docker-plugin/issues/228
 if [ -n "$MASTER_URL" ] ; then
-    if [ "$BAN_MASTER" == "True" ]; then
-        MASTER_HOSTNAME=$(echo "$MASTER_URL" | awk -F/ '{print $3}')
-        echo "Ban master hostname"
-        echo "127.0.0.1 $MASTER_HOSTNAME" >> /etc/hosts
-
-    fi
+    MASTER_HOSTNAME=$(echo "$MASTER_URL" | awk -F/ '{print $3}')
+    echo "Ban master hostname"
+    echo "127.0.0.1 $MASTER_HOSTNAME" >> /etc/hosts
 fi
 
 if [ "$(id -nu)" != "$JENKINS_USER" ]; then
