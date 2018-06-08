@@ -182,7 +182,9 @@ public class DockerComputerJNLPLauncher extends DockerComputerLauncher {
         final DockerSlaveTemplate dockerSlaveTemplate = node.getDockerSlaveTemplate();
         final DockerComputerJNLPLauncher launcher = (DockerComputerJNLPLauncher) dockerSlaveTemplate.getLauncher();
 
-        final String rootUrl = launcher.getJenkinsUrl(Jenkins.getInstance().getRootUrl());
+        String master = Jenkins.getInstance().getRootUrl();
+        final String rootUrl = launcher.getJenkinsUrl(master);
+
 //        Objects.requireNonNull(rootUrl, "Jenkins root url is not specified!");
         if (isNull(rootUrl)) {
             throw new IllegalStateException("Jenkins root url is not specified!");
@@ -221,6 +223,7 @@ public class DockerComputerJNLPLauncher extends DockerComputerLauncher {
             } else { // default is OsType.LINUX
                 startCmd =
                         "cat << EOF > /tmp/config.sh.tmp && cd /tmp && mv config.sh.tmp config.sh\n" +
+                                "MASTER_URL=\"" + master + NL +
                                 "JENKINS_URL=\"" + rootUrl + NL +
                                 "JENKINS_USER=\"" + getUser() + NL +
                                 "JENKINS_HOME=\"" + dockerSlaveTemplate.getRemoteFs() + NL +
