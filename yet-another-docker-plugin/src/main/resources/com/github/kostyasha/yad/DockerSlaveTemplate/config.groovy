@@ -39,6 +39,11 @@ f.section(title: _("Jenkins Slave Config")) {
         f.textbox()
     }
 
+    f.entry(title: _("Custom docker Label"), field: "customDockerLabel",
+            help: descriptorPath + "/help/dockerCustomLabel") {
+        f.textbox()
+    }
+
     f.slave_mode(name: "mode", node: instance)
 
     f.advanced(title: _("Experimental Options"), align: "left") {

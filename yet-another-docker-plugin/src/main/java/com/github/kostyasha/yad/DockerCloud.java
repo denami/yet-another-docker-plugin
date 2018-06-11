@@ -213,6 +213,10 @@ public class DockerCloud extends AbstractCloud implements Serializable {
         labels.put(DOCKER_CLOUD_LABEL, getDisplayName());
         labels.put(DOCKER_TEMPLATE_LABEL, slaveTemplate.getId());
 
+        if (slaveTemplate.getCustomDockerLabel() != null) {
+            labels.put("CUSTOM_DOCKER_LABEL", slaveTemplate.getCustomDockerLabel());
+        }
+
         containerConfig.withLabels(labels);
     }
 

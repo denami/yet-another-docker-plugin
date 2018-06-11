@@ -39,6 +39,7 @@ public class DockerSlaveTemplate extends DockerSlaveConfig {
 
     private transient /*almost final*/ Set<LabelAtom> labelSet;
     private transient OsType osType;
+    private String customDockerLabel;
 
     /**
      * Generates new unique ID for new instances.
@@ -67,11 +68,19 @@ public class DockerSlaveTemplate extends DockerSlaveConfig {
         setNodeProperties(nodeProperties);
     }
 
-
     @DataBoundSetter
     public void setLabelString(String labelString) {
         super.setLabelString(labelString);
         this.labelSet = Label.parse(labelString);
+    }
+
+    public String getCustomDockerLabel() {
+        return customDockerLabel;
+    }
+
+    @DataBoundSetter
+    public void setCustomDockerLabel(String customDockerLabel) {
+        this.customDockerLabel = customDockerLabel;
     }
 
     public OsType getOsType() {
