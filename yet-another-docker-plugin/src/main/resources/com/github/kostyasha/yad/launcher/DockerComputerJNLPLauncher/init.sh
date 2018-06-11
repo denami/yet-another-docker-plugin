@@ -105,6 +105,14 @@ if [ -n "$COMPUTER_SECRET" ]; then
  RUN_CMD="$RUN_CMD -secret $COMPUTER_SECRET"
 fi
 
+#Restrict access to master by default hostname
+#Described in comment for https://github.com/KostyaSha/yet-another-docker-plugin/issues/228
+if [ -n "$MASTER_URL" ] ; then
+    MASTER_HOSTNAME=$(echo "$MASTER_URL" | awk -F/ '{print $3}' | awk -F ":" '{print $1}')
+    echo "Ban master hostname: $MASTER_HOSTNAME"
+    echo "127.0.0.1 $MASTER_HOSTNAME" >> /etc/hosts
+fi
+
 if [ "$(id -nu)" != "$JENKINS_USER" ]; then
     if [ -x "$(command -v gosu)" ]; then
         RUN_CMD="gosu $JENKINS_USER $RUN_CMD"
