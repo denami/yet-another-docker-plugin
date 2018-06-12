@@ -22,6 +22,11 @@ f.entry(title: _("Max Instances"), field: "maxCapacity") {
     f.number()
 }
 
+f.entry(title: _("Custom docker Labels"), field: "customDockerLabels",
+        help: descriptorPath + "/help/dockerCustomLabels") {
+    f.textbox()
+}
+
 f.section(title: _("Docker Container Lifecycle")) {
     f.block() {
         f.property(field: "dockerContainerLifecycle")
@@ -36,11 +41,6 @@ f.section(title: _("Jenkins Slave Config")) {
 
     f.entry(title: _("Labels"), field: "labelString",
             help: descriptorPath + "/help/labelString") {
-        f.textbox()
-    }
-
-    f.entry(title: _("Custom docker Label"), field: "customDockerLabel",
-            help: descriptorPath + "/help/dockerCustomLabel") {
         f.textbox()
     }
 
